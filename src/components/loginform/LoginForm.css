@@ -1,0 +1,11 @@
+#form{
+  color:white;
+  background-color: rgba(0, 0, 0, 0.699);
+  height:100vh;
+}
+
+#textField{
+  background-color: rgba(240, 240, 240, 0.493);
+  color:rgb(0, 0, 0);
+
+}
