@@ -5,20 +5,22 @@ import {Form,Button} from 'react-bootstrap';
 
 
 function LoginForm(props) {
-  
+  const {handleSubmit,handleChange,username,password} = props;
   return (
-    
+        
         <div style={{"background":"grey"}}>
-          <form id="loginForm" onSubmit={props.handleSubmit}>
+          <form id="loginForm" onSubmit={handleSubmit}>
             <br/>
             <input type="text" 
-                  value={props.username}               
+                  value={username}    
+                  onChange={handleChange}           
                   id="username"
                   name="username"
                   placeholder="username"/>
                   
             <input type="password" 
-                  value={props.password} 
+                  value={password} 
+                  onChange={handleChange}  
                   id="password" 
                   name="password"
                   placeholder="password" 
