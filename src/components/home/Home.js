@@ -1,22 +1,19 @@
-import {React,useState} from 'react';
-import LoginForm from '../loginform/LoginForm';
+import {React,useState, useEffect} from 'react';
+
 
 function Home(props){
 
-  const { isLoggedIn, setIsLoggedIn, setUserInfo, userInfo } = props;
+  const { isLoggedIn, setIsLoggedIn, userInfo, setUserInfo } = props;
   
   return (
-
-      <div>
-        {userInfo}
+ 
+      <div>  
         {
-
           !isLoggedIn &&
           <div>
             Please <a href="/login">Login</a> to continue
           </div>
-        }
-        
+        }        
       </div>
     
     
