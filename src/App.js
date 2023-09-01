@@ -8,40 +8,29 @@ import LoginForm from './components/loginform/LoginForm';
 import LoginFormContainer from './components/loginform/LoginFormContainer';
 import UserProfile from './components/profile/UserProfile';
 import { useUser } from './components/UserContext';
+import CreateFormContainer from './components/createform/CreateFormContainer';
 
 function App() {
   const URL = "http://localhost:8080"
 
-  const {userInfo,setUserInfo} = useUser();
-//const {userInfo,setUserInfo} = useState({});
-
-  const [isLoggedIn,setIsLoggedIn] = useState(false);
+  const {userInfo,setUserInfo,isLoggedIn,setIsLoggedIn} = useUser();
 
 
   useEffect(()=>{
     const user = localStorage.getItem('user');
-    setUserInfo(user);
+    setUserInfo(JSON.parse(user));
+    const bool = localStorage.getItem('logged');
+    setIsLoggedIn(JSON.parse(bool));
   },[]);
   
   
   useEffect(()=>{
-    localStorage.setItem('user', userInfo);
+    localStorage.setItem('user', JSON.stringify(userInfo));
   },[userInfo]);
 
-
-  // const getUsers = async() => {
-
-  //   try{
-  //     const response = await axios.get(URL+"/api/v1/users");
-  //     console.log(response.data);
-  //     setUser(response.data);
-  //   }
-  //   catch(err){
-  //     console.log(err);
-  //   }
-
-    
-  // }
+  useEffect(()=>{
+    localStorage.setItem('logged', JSON.stringify(isLoggedIn));
+  },[isLoggedIn]);
 
   return (
 
@@ -49,10 +38,17 @@ function App() {
 
       <Header isLoggedIn={isLoggedIn}/>
       <Routes>
-          <Route path="/" element={<Home isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />}></Route>
-          <Route path="/login" element={<LoginFormContainer setUserInfo={setUserInfo} setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} userInfo={userInfo}/>}></Route>
-          <Route path="/profile/" element={<UserProfile isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>}></Route>
-          <Route path="/createAccount" element={<></>}></Route>
+          <Route path="/" 
+                element={<Home/>}/>
+
+          <Route path="/login" 
+                element={<LoginFormContainer />}/>
+
+          <Route path={"/profile/"+userInfo.username} 
+                element={<UserProfile/>}/>  
+                          
+          <Route path="/create" 
+                element={<CreateFormContainer/>}/>
       </Routes>
       
     </div>

@@ -14,13 +14,11 @@ import { UserProvider } from './components/UserContext';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <UserProvider>
-    
-      <BrowserRouter>
+    <BrowserRouter>
       <Routes>
         <Route path="/*" element={<App/>}/>
       </Routes>
-      </BrowserRouter>
-    
+    </BrowserRouter>
   </UserProvider>
 );
 

@@ -3,10 +3,10 @@ import { Navigate } from 'react-router-dom';
 import { useUser } from '../UserContext';
 
 
-function UserProfile(props) {
+function UserProfile() {
 
-  const {isLoggedIn,  setIsLoggedIn} = props;
-  const {userInfo,setUserInfo} = useUser();
+
+  const {userInfo,setUserInfo,isLoggedIn, setIsLoggedIn} = useUser();
   
 
   return (

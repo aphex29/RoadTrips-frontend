@@ -11,11 +11,8 @@ function LoginFormContainer(props) {
 
   const URL = 'http://localhost:8080/';
 
-  const {userInfo,setUserInfo} = useUser();
-
-  const{setIsLoggedIn, isLoggedIn} = props;
-
-
+  const [accountVerified, setAccountVerified] = useState(null)
+  const {userInfo,setUserInfo,isLoggedIn,setIsLoggedIn} = useUser();
 
   const[login,setLogin] = useState({
     username:"",
@@ -23,9 +20,6 @@ function LoginFormContainer(props) {
   });
 
  
-
-
-  const [accountVerified, setAccountVerified] = useState(null)
   // useEffect(() => {
   //     const getPerson = async () => {
   //         let response = await axios.get('http://localhost:8080/api/users/'+login.username)
@@ -40,25 +34,19 @@ function LoginFormContainer(props) {
     
   // }, [accountVerified]);
   
-  
-  const[isValid,setIsValid] = useState(false)
+ 
   const handleSubmit = async(e) =>{
     e.preventDefault();
     let response = axios.post(URL + 'api/v1/verify', login)
       .then(response => {
         console.log(response);
-        setUserInfo(response.data);
-        setAccountVerified(true);
-        setIsValid(true);
+        setUserInfo(response.data);      
         setIsLoggedIn(true);
       })
       .catch(error => {
         console.log(error);
-        setAccountVerified(false);
-        setIsValid(false);
-      });
-      
-       
+        alert("Invalid credentials");
+      });     
   }
 
   const handleChange = ({target}) => {
@@ -74,9 +62,9 @@ function LoginFormContainer(props) {
                   handleChange={handleChange} 
                   username={login.username} 
                   password={login.password}/>
-      {accountVerified && <Navigate to={"/profile/"+userInfo.username}/>}
-
-      {!accountVerified && <p>Invalid Credentials</p>}
+      {isLoggedIn && <Navigate to={"/profile/"+userInfo.username}/>}
+      <div>No account? Create one <a href="/create" >here</a>.</div>
+      
     </div>
   )
   

@@ -1,10 +1,11 @@
 import {React,useState, useEffect} from 'react';
+import { useUser } from '../UserContext';
 
 
 function Home(props){
-
-  const { isLoggedIn, setIsLoggedIn, userInfo, setUserInfo } = props;
   
+  const {userInfo,isLoggedIn} = useUser();
+
   return (
  
       <div>  
@@ -13,7 +14,8 @@ function Home(props){
           <div>
             Please <a href="/login">Login</a> to continue
           </div>
-        }        
+        }
+                
       </div>
     
     
