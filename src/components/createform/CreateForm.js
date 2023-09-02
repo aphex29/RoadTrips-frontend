@@ -15,20 +15,23 @@ function CreateForm(props) {
                   value={firstName}    
                   onChange={handleChange}           
                   name="firstName"            
-                  placeholder="First Name"/>
+                  placeholder="First Name"
+                  required/>
                   
             <input type="text" 
                   value={lastName} 
                   onChange={handleChange}  
                   name="lastName"          
-                  placeholder="Last Name"/>
+                  placeholder="Last Name"
+                  required/>
             <br/>
             <input className="mt-2"
                   type="email" 
                   value={email} 
                   onChange={handleChange}  
                   name="email"          
-                  placeholder="Email"/>
+                  placeholder="Email"
+                  required/>
 
             <br/>
             <input className="mt-2"
@@ -36,7 +39,8 @@ function CreateForm(props) {
                   value={username} 
                   onChange={handleChange}  
                   name="username"          
-                  placeholder="Username"/>
+                  placeholder="Username"
+                  required/>
 
             <br/>
             <input className="mt-2"
@@ -44,7 +48,8 @@ function CreateForm(props) {
                   value={password} 
                   onChange={handleChange}  
                   name="password"          
-                  placeholder="Password"/>
+                  placeholder="Password"
+                  required/>
 
           <br/>
           <Button type="submit" className="mt-3 mb-3" >Create</Button>
