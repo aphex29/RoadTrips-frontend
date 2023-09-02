@@ -9,11 +9,11 @@ function Home(props){
   return (
  
       <div>  
-        {
-          !isLoggedIn &&
-          <div>
+        {!isLoggedIn 
+          ?<div>
             Please <a href="/login">Login</a> to continue
           </div>
+          :<div>Welcome, {userInfo.firstName}</div>
         }
                 
       </div>
