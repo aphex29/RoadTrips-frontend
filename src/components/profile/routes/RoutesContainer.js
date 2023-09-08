@@ -5,6 +5,7 @@ import Route from './Route';
 import { Button } from 'react-bootstrap';
 import EditPopup from './EditPopup';
 import axios from 'axios';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 
 function RoutesContainer() {
@@ -76,15 +77,21 @@ function RoutesContainer() {
     deleteRoute(id);
   }
 
+  let navigate = useNavigate();
+  function routeToTrip(id){
+    navigate("/trip/"+id);
+  }
+
+
 
   const listRoutes = routes.map(route=>
     {
       if(!isEditing){
-      return <div key={route.id} className ="routeBorders" style={{"flexBasis":"30%"}}>{route.destination}</div>;
+      return <div key={route.id} onClick={()=>routeToTrip(route.id)}className ="routeBorders routeInteract" style={{"flexBasis":"30%"}}>{route.destination}</div>;
       }
       else{
         return (
-        <div key={route.id} className ="routeBorders" style={{"flexBasis":"30%"}}>
+        <div key={route.id} className ="routeBorders routeInteract" style={{"flexBasis":"30%"}}>
           <div className="d-inline-block">
           {route.destination}
           </div>
@@ -108,7 +115,9 @@ function RoutesContainer() {
     <div className="d-inline-block p-2">
       <Button className="btn btn-dark btn-md" onClick={()=>handleEditTrip()}>{btnMsg}</Button>
     </div>
+    <div className="routeContainer pt-3">
       <Route listRoutes={listRoutes}/>    
+    </div>
     </>
   )
 }

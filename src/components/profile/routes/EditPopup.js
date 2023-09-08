@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './Routes.css';
 
 
@@ -7,26 +7,48 @@ import './Routes.css';
 
 function EditPopup(props) {
   const {submitHandler,changeHandler,origin,destination,setShowAdd} = props;
-  return (
-    <div className="addPopup d-flex flex-column justify-content-around p-2 position-fixed">
 
-          <form onSubmit={submitHandler}>
-            <label>
-              Origin:
-            <input type="text" placeholder="Origin" id="origin" onChange={changeHandler} value={origin} required></input>
-            </label>
-            
-            <label>
-              Destination:
-              <input type="text" placeholder="Destination" id="destination" onChange={changeHandler} value={destination} required></input>
-            </label> 
-            <br/> 
-            <label>          
-              <button type="submit">Add</button>
-              <button onClick={()=>{setShowAdd(false);}}>Close</button>
-            </label>
-          </form>          
+  const [waypoint,setWaypoint] = useState(0);
+
+  const generateField = () =>{
+    setWaypoint(waypoint+1);
+
+  }
+
+  useEffect(()=>{
+    
+  },[waypoint])
+
+
+
+  return (
+    <div className="addPopup">
+      <button onClick={()=>generateField}>Add waypoint field</button>
+      <div className="d-flex justify-content-end p-2 position-fixed">
+        
+            <form onSubmit={submitHandler} className="editingForm">
+              <label>
+              
+              <input type="text" placeholder="Origin" id="origin" onChange={changeHandler} value={origin} required></input>
+              </label>
+              <br/>
+
+
+              {}
+
+              <label>
+                <input type="text" placeholder="Destination" id="destination" onChange={changeHandler} value={destination} required></input>
+              </label> 
+              
+              <br/> 
+              <label>          
+                <button type="submit">Add</button>
+                <button onClick={()=>{setShowAdd(false);}}>Close</button>
+              </label>
+            </form>          
+        </div>
       </div>
+      
   )
 }
 
