@@ -1,0 +1,26 @@
+
+
+.mapBorder{
+  background:rgba(255, 255, 255, 0.384);
+  
+  border:2px solid rgb(0, 0, 0);
+  border-radius:20px;
+  height:400px;
+  width:900px;
+  
+}
+
+.infoBox{
+  border:2px solid black;
+  width:300px;
+  border-radius:50px;
+  background:rgba(128, 128, 128, 0.685);
+}
+
+
+.durationBox{
+  border:2px solid black;
+}
+
+
+
