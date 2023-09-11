@@ -9,6 +9,7 @@ import LoginFormContainer from './components/loginform/LoginFormContainer';
 import UserProfile from './components/profile/UserProfile';
 import { useUser } from './components/UserContext';
 import CreateFormContainer from './components/createform/CreateFormContainer';
+import TripsContainer from './components/trips/TripsContainer';
 
 function App() {
   const URL = "http://localhost:8080"
@@ -42,13 +43,16 @@ function App() {
                 element={<Home/>}/>
 
           <Route path="/login" 
-                element={<LoginFormContainer />}/>
+                element={<LoginFormContainer/>}/>
 
           <Route path={"/profile/"+userInfo.username} 
                 element={<UserProfile/>}/>  
                           
           <Route path="/create" 
                 element={<CreateFormContainer/>}/>
+
+          <Route path="/trip/:routeId"
+                element={<TripsContainer/>}/>
       </Routes>
       
     </div>
