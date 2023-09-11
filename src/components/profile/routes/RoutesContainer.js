@@ -3,21 +3,18 @@ import './Routes.css'
 import { useUser } from '../../UserContext';
 import Route from './Route';
 import { Button } from 'react-bootstrap';
-import EditPopup from './EditPopup';
+import EditPopupForm from './EditPopupForm';
 import axios from 'axios';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 
 
 function RoutesContainer() {
   
   const {userInfo, setUserInfo} = useUser();
-
   const[routes,setRoutes] = useState(userInfo.routes);
   const[showAdd,setShowAdd]= useState(false);
   const[isEditing,setIsEditing] = useState(false);
-
-
-
 
   const[addForm,setAddForm] = useState({
     origin:"",
@@ -83,17 +80,19 @@ function RoutesContainer() {
   }
 
 
-
-  const listRoutes = routes.map(route=>
-    {
+  const listRoutes = routes.map(route=>{
+      let origin = route.waypoints[0].address;
+      let destination = route.waypoints[route.waypoints.length-1].address;
       if(!isEditing){
-      return <div key={route.id} onClick={()=>routeToTrip(route.id)}className ="routeBorders routeInteract" style={{"flexBasis":"30%"}}>{route.destination}</div>;
+      return <div key={route.id} onClick={()=>routeToTrip(route.id)}className ="routeBorders routeInteract" style={{"flexBasis":"30%"}}>
+          Your trip from {origin} to {destination}
+        </div>;
       }
       else{
         return (
         <div key={route.id} className ="routeBorders routeInteract" style={{"flexBasis":"30%"}}>
           <div className="d-inline-block">
-          {route.destination}
+          Your trip from {origin} to {destination}
           </div>
           <div className="d-inline-block position-absolute end-0" >
           <Button onClick={()=>handleDelete(route.id)}className="btn-dark btn-sm">&minus;</Button>
@@ -101,12 +100,17 @@ function RoutesContainer() {
         </div>)
       }
     });
+    
+
+  
+  
+
 
 
   return (
     <>
     {showAdd &&
-      <EditPopup submitHandler={handleAddSubmit} changeHandler={handleChange} origin={addForm.origin} destination={addForm.destination} setShowAdd={setShowAdd}/>           
+      <EditPopupForm submitHandler={handleAddSubmit} changeHandler={handleChange} origin={addForm.origin} destination={addForm.destination} setShowAdd={setShowAdd}/>           
     }
 
     <div className="d-inline-block p-2">
