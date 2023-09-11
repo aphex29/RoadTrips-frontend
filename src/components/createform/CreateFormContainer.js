@@ -14,9 +14,9 @@ function CreateFormContainer() {
 
   const [valid,setValid] = useState(false);
   const [profile,setProfile] = useState({
-    firstName:"Pat",
-    lastName:"Mark",
-    email:"mea@ma.com",
+    firstName:"",
+    lastName:"",
+    email:"",
     username:"",
     password:""
   })

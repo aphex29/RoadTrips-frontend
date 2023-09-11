@@ -1,5 +1,9 @@
 body{
-  background-color: black;
-  background:black;
+  background-color: rgb(190, 190, 190);
   
+}
+
+.homeContainer{
+  background:grey;
+  height:100vh;
 }

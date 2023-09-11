@@ -10,7 +10,7 @@ function Header() {
   const {isLoggedIn,userInfo} = useUser();
 
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
+    <Navbar expand="lg" className="sticky-top">
       <Container>
           <Navbar.Brand href="/">RoadTrips</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -19,29 +19,24 @@ function Header() {
               {isLoggedIn  
 
                 ?<>
-                <Nav.Link href={"/profile/"+userInfo.username}>Profile</Nav.Link>
+                <Nav.Link href={"/profile/"+userInfo.username}>Trips</Nav.Link>
                 <NavDropdown title="Settings" id="basic-nav-dropdown">
                   <NavDropdown.Item href="/">Change username</NavDropdown.Item>
                   <NavDropdown.Item href="/">Change password</NavDropdown.Item>
                 </NavDropdown>
                 <Nav.Link onClick={()=> {const val = {};
                                         localStorage.setItem('user',JSON.stringify(val)); 
-                                        localStorage.setItem('logged',false)}} href="/login">Logout</Nav.Link>
+                                        localStorage.setItem('logged',false)}} href="/login">Logout</Nav.Link>              
                 </>
 
                 :<>
                   <Nav.Link href="/login">Login</Nav.Link>
                 </>
-              }
-
-              
-
+              }         
             </Nav>
           </Navbar.Collapse>
         </Container>
     </Navbar>
-
-
   )
 }
 
