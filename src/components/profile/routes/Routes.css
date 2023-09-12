@@ -14,7 +14,7 @@
 .addPopup{
   z-index:99;
   width:400px;
-  height:400px;
+  height:450px;
   background:rgba(31, 31, 31, 0.925);
   border-radius: 6px;
   position: absolute;
@@ -33,6 +33,4 @@
   opacity:0.7;
 }
 
-.editingForm{
-  
-}
+

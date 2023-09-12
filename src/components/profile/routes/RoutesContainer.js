@@ -16,36 +16,33 @@ function RoutesContainer() {
   const[showAdd,setShowAdd]= useState(false);
   const[isEditing,setIsEditing] = useState(false);
 
-  const[addForm,setAddForm] = useState({
+  const[routeObj,setRouteObj] = useState({
+    userId:userInfo.id,
     origin:"",
-    destination:""
+    destination:"",
+    waypoints:[]
   });
 
-  function handleChange(e){
-    const {id,value} = e.target;
-    setAddForm((prev) => ({...prev, [id]: value}));
-  }
 
-  function handleAddSubmit(e){
-    e.preventDefault();
-    createRoute();
-  }
 
   useEffect(()=>{
-    let userObj = JSON.parse(JSON.stringify(userInfo));
+    let userObj = {...userInfo};
     userObj.routes=routes;
     setUserInfo(userObj);
   },[routes])
  
   const createRoute = () => {
-    axios.post('http://localhost:8080/api/v1/route',{userId:userInfo.id,...addForm})
+    axios.post('http://localhost:8080/api/v1/route',routeObj)
     .then(response=>{
       console.log(response);
       let routeArray = [...routes];
       routeArray.push(response.data);
       setRoutes(routeArray);
+      setShowAdd(false);
     })
-    .catch(error=>console.log(error));
+    .catch(error=>{
+      console.log(error);
+    });
   }
 
   const deleteRoute =(id) =>{
@@ -64,6 +61,17 @@ function RoutesContainer() {
   }
 
   const [btnMsg,setBtnMsg]=useState("Edit Trip");
+
+  function handleChange(e){
+    const {id,value} = e.target;
+    setRouteObj((prev) => ({...prev, [id]: value}));
+  }
+
+  function handleAddSubmit(e){
+    e.preventDefault();
+    createRoute();
+  }
+
   function handleEditTrip(){
     setIsEditing(!isEditing);
     if (isEditing) setBtnMsg("Edit Trip");
@@ -74,10 +82,19 @@ function RoutesContainer() {
     deleteRoute(id);
   }
 
+  function waypointHandler({target}){
+    const {id,value} = target;
+    let change = value;
+    let newArr = [...routeObj.waypoints]
+    newArr[id]=change;
+    setRouteObj({...routeObj,waypoints:newArr});
+  }
+
   let navigate = useNavigate();
   function routeToTrip(id){
     navigate("/trip/"+id);
   }
+
 
 
   const listRoutes = routes.map(route=>{
@@ -110,7 +127,7 @@ function RoutesContainer() {
   return (
     <>
     {showAdd &&
-      <EditPopupForm submitHandler={handleAddSubmit} changeHandler={handleChange} origin={addForm.origin} destination={addForm.destination} setShowAdd={setShowAdd}/>           
+      <EditPopupForm submitHandler={handleAddSubmit} changeHandler={handleChange} origin={routeObj.origin} destination={routeObj.destination} setShowAdd={setShowAdd} waypointHandler={waypointHandler}/>           
     }
 
     <div className="d-inline-block p-2">
