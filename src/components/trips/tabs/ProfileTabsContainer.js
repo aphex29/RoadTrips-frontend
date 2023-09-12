@@ -11,26 +11,21 @@ function ProfileTabsContainer(props) {
   const [isNotes,setIsNotes] = useState(false);
   const [isPOI,setIsPOI] = useState(false);
 
-
-
- 
-
-
   function onClickRouteDetails(){
-    setIsDetails(!isDetails);
+    setIsDetails(true);
     setIsNotes(false);
     setIsPOI(false);
     
   }
 
   function onClickNotes(){
-    setIsNotes(!isNotes);
+    setIsNotes(true);
     setIsDetails(false);
     setIsPOI(false);
   }
 
   function onClickShowPOI(){
-    setIsPOI(!isPOI);
+    setIsPOI(true);
     setIsDetails(false);
     setIsNotes(false);
   }
@@ -67,7 +62,7 @@ function ProfileTabsContainer(props) {
       }
 
       {isNotes &&
-        <RouteNotes/>
+        <RouteNotes waypoints={routeInfo.waypoints}/>
       }
       {isPOI &&
         <PointsOfInterest/>
