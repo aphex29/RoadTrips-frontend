@@ -12,7 +12,7 @@ function TripsContainer() {
   const [routeInfo,setRouteInfo] = useState();
   
 
-  useEffect(()=>{   
+  useEffect(()=>{  
     let response = axios.get("http://localhost:8080/api/v1/route/"+routeId)
     .then(response=>{
       console.log(response);
@@ -29,7 +29,7 @@ function TripsContainer() {
     
     {routeInfo &&
     <>
-      <Gmaps/>
+      <Gmaps routeInfo={routeInfo}/>
     
       <ProfileTabsContainer routeInfo={routeInfo}/>
     </>
