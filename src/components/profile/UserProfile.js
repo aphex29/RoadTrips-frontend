@@ -1,13 +1,8 @@
-import {React, useEffect, useState} from 'react'
+import {React } from 'react'
 import './routes/Routes.css';
-import { Navigate } from 'react-router-dom';
-import axios from 'axios';
-import { useUser } from '../UserContext';
 import RoutesContainer from './routes/RoutesContainer';
-import { Button } from 'react-bootstrap';
 
 function UserProfile() {
-
   return (
     <div className='tripsContainer'>
       <RoutesContainer/>

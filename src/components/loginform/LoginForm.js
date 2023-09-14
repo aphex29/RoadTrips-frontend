@@ -1,13 +1,10 @@
 import "./LoginForm.css";
 import React from 'react';
-import {useState} from 'react';
-import {Form,Button} from 'react-bootstrap';
-
+import {Button} from 'react-bootstrap';
 
 function LoginForm(props) {
   const {handleSubmit,handleChange,username,password} = props;
   return (
-        
         <div style={{"background":"grey"}}>
           <form id="loginForm" onSubmit={handleSubmit}>
             <br/>
@@ -24,8 +21,7 @@ function LoginForm(props) {
                   id="password" 
                   name="password"
                   placeholder="password" 
-                  style={{"marginLeft":"10px"}}/>
-          
+                  style={{"marginLeft":"10px"}}/>         
           <Button type="submit" style={{"marginLeft":"10px"}}>Login</Button>
           </form>
         </div>
