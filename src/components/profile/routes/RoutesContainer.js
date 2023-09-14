@@ -32,6 +32,9 @@ function RoutesContainer() {
   },[routes])
  
   const createRoute = () => {
+    //In case user adds a waypoint but does not fill out the waypoint field
+    let cleanedArr = routeObj.waypoints.filter((waypoint)=>waypoint!=="" && waypoint!==undefined);
+    setRouteObj((prev) => ({...prev,["waypoints"]:[...cleanedArr]}));;
     axios.post('http://localhost:8080/api/v1/route',routeObj)
     .then(response=>{
       console.log(response);
