@@ -65,7 +65,7 @@ function ProfileTabsContainer(props) {
         <RouteNotes waypoints={routeInfo.waypoints}/>
       }
       {isPOI &&
-        <PointsOfInterest/>
+        <PointsOfInterest waypoints={routeInfo.waypoints}/>
       }
 
     </>

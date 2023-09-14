@@ -3,6 +3,7 @@ import { useUser } from '../../UserContext';
 import '../Trips.css'
 import axios from 'axios';
 import EditRoutesNotes from './editing/EditRoutesNotes';
+import { selectListHelper } from './helper/selectListHelper';
 
 function RouteNotes(props) {
   
@@ -15,17 +16,16 @@ function RouteNotes(props) {
   const handleChange = (e)=>{
     if (e.target.value!=="1")
     { 
-    axios.get('http://localhost:8080/api/v1/waypoint/'+e.target.value)
-    .then(response=>{
-      setWaypointInfo(response.data);
-      setIsLoaded(true);
-      setNote(response.data.notes);
-      console.log(response.data);
-    })
-    .catch(error=>{
-      console.log(error);
-    })
-  }
+      axios.get('http://localhost:8080/api/v1/waypoint/'+e.target.value)
+        .then(response=>{
+          setWaypointInfo(response.data);
+          setNote(response.data.notes);
+          console.log(response.data);
+        })
+        .catch(error=>{
+          console.log(error);
+        });
+    }
   }
 
   function onEditClick(){
@@ -37,11 +37,7 @@ function RouteNotes(props) {
     setNote(value);
   }
 
-  let listWaypoints = waypoints.map(waypoint=>{
-    return(
-      <option value={waypoint.id}>{waypoint.address}</option>
-    )
-  })
+  let listWaypoints = selectListHelper(waypoints);
 
   function handleSaveNote(e){
     e.preventDefault();
@@ -58,7 +54,7 @@ function RouteNotes(props) {
  
   return (
     <>
-      <select className="dropdownMenu form-select form-select-lg mt-5 d-flex justify-content-center" onChange={(e)=>handleChange(e)} >
+      <select className="dropdownMenu form-select form-select-sm mt-5 d-flex justify-content-center" onChange={(e)=>handleChange(e)} >
         <option value={"1"}>Select</option>
         {listWaypoints}
       </select>
@@ -69,7 +65,7 @@ function RouteNotes(props) {
         : <>
             <form>
               <textarea onChange={handleFormChange}>
-                {waypointInfo.notes}
+                {note}
               </textarea>
               <br/>
               <button type="submit" onClick={(e)=>handleSaveNote(e)}>Save</button>
