@@ -6,6 +6,7 @@ import { Button } from 'react-bootstrap';
 import EditPopupForm from './EditPopupForm';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import AutoComplete from '../autocomplete/AutoComplete';
 
 
 
@@ -24,7 +25,8 @@ function RoutesContainer() {
   });
 
 
-
+  
+  //Update local storage to store the new routes array, whether a user creates or deletes a route
   useEffect(()=>{
     let userObj = {...userInfo};
     userObj.routes=routes;
@@ -32,7 +34,7 @@ function RoutesContainer() {
   },[routes])
  
   const createRoute = () => {
-    //In case user adds a waypoint but does not fill out the waypoint field
+    //In case user adds a waypoint but does not fill out the waypoint field to keep a clean array with just values and no empty strings/undefined values
     let cleanedArr = routeObj.waypoints.filter((waypoint)=>waypoint!=="" && waypoint!==undefined);
     setRouteObj((prev) => ({...prev,["waypoints"]:[...cleanedArr]}));;
     axios.post('http://localhost:8080/api/v1/route',routeObj)
@@ -63,16 +65,12 @@ function RoutesContainer() {
     .catch(error=>console.log(error));
   }
 
+  //To dynamically update UI when the user presses  the Edit Trip button
   const [btnMsg,setBtnMsg]=useState("Edit Trip");
 
   function handleChange(e){
     const {id,value} = e.target;
     setRouteObj((prev) => ({...prev, [id]: value}));
-  }
-
-  function handleAddSubmit(e){
-    e.preventDefault();
-    createRoute();
   }
 
   function handleEditTrip(){
@@ -81,10 +79,16 @@ function RoutesContainer() {
     else setBtnMsg("Cancel Edit");
   }
 
+  function handleAddSubmit(e){
+    e.preventDefault();
+    createRoute();
+  }
+
   function handleDelete(id){
     deleteRoute(id);
   }
 
+  //Special case for handling waypoint form fields, where the amount of waypoint fields that a user can generate is 0<=n<=16
   function waypointHandler({target}){
     const {id,value} = target;
     let change = value;
@@ -93,6 +97,12 @@ function RoutesContainer() {
     setRouteObj({...routeObj,waypoints:newArr});
   }
 
+
+
+ 
+    
+  
+  //Redirect user when route card is clicked
   let navigate = useNavigate();
   function routeToTrip(id){
     navigate("/trip/"+id);
@@ -130,7 +140,7 @@ function RoutesContainer() {
   return (
     <>
     {showAdd &&
-      <EditPopupForm submitHandler={handleAddSubmit} changeHandler={handleChange} origin={routeObj.origin} destination={routeObj.destination} setShowAdd={setShowAdd} waypointHandler={waypointHandler}/>           
+      <EditPopupForm setShowAdd={setShowAdd}/>           
     }
 
     <div className="d-inline-block p-2">
