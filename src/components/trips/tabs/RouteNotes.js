@@ -4,10 +4,11 @@ import '../Trips.css'
 import axios from 'axios';
 import EditRoutesNotes from './editing/EditRoutesNotes';
 import { selectListHelper } from './helper/selectListHelper';
+import { getByWaypoint } from '../TripsServices';
 
 function RouteNotes(props) {
   
-  const {waypoints} = props;
+  const {waypoints,map} = props;
   
   const [waypointInfo,setWaypointInfo] = useState({});
   const [isEditing,setIsEditing] = useState(false);
@@ -16,15 +17,14 @@ function RouteNotes(props) {
   const handleChange = (e)=>{
     if (e.target.value!=="1")
     { 
-      axios.get('http://localhost:8080/api/v1/waypoint/'+e.target.value)
-        .then(response=>{
-          setWaypointInfo(response.data);
-          setNote(response.data.notes);
-          console.log(response.data);
-        })
-        .catch(error=>{
-          console.log(error);
-        });
+      getByWaypoint(e.target.value)
+      .then(response=>{
+        console.log(response);
+        map.panTo({lat: response.data.latitude, lng:response.data.longitude})
+        setWaypointInfo(response.data);
+        setNote(response.data.notes);
+        console.log(response.data);
+      });
     }
   }
 

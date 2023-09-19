@@ -1,35 +1,59 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './Trips.css'
-import axios from 'axios';
-
+import { GoogleMap, useJsApiLoader, Polyline } from "@react-google-maps/api"
+import polyline from '@mapbox/polyline';
 
 function Gmaps(props) {
-  const {routeInfo} = props;
-  let api= process.env.REACT_APP_API_KEY;
+  const {routeInfo, map, setMap} = props;
   
+
+  const { isLoaded } = useJsApiLoader({
+    id: 'google-map-script',
+    googleMapsApiKey: "AIzaSyA8rt9LCZJB6uOyzTOOCeUwF7YSbOd9MCE",
+    libraries: ['geometry', 'places'],
+  });
+
+
   let waypoints = routeInfo.waypoints;
 
-  let waypointAddr = [...waypoints].map((waypoint)=>waypoint.address);
-  waypointAddr.pop();
-  waypointAddr.shift();
-  let waypointStr = [...waypointAddr].join("|");
+  
 
- 
-
-  let URL = "https://www.google.com/maps/embed/v1/directions?key=" + api + "&zoom=8" + "&origin=" + waypoints[0].address + "&destination=" + waypoints[waypoints.length-1].address + "&avoid=tolls";
-  if (waypointStr!==""){
-    URL = URL+"&waypoints="+waypointStr;
+  const center = {
+    lat: waypoints[0].latitude,
+    lng: waypoints[0].longitude
   }
 
+  const decodedPolyline = polyline.decode(routeInfo.polyline).map(point=>({lat: point[0], lng: point[1]}));
   
   return (
     <div className="mapContainer mt-5 d-flex justify-content-center"> 
-      <div className="mapBorder">
-        <iframe
-        width="100%"
-        height="100%"
-        src={URL}>
-      </iframe>
+      <div className="mapBorder" id="map">      
+          {isLoaded &&
+          <GoogleMap          
+            center={center}
+            mapContainerStyle={{width:"100%", height:"100%"}}
+            zoom={10}
+            options={{
+              streetViewControl:false,
+              mapTypeControl:false,
+              fullscreenControl:false,
+              zoomControl:false,
+            }}
+            onLoad={(map)=> setMap(map)}
+            >
+
+              <Polyline
+              path={decodedPolyline}
+              options={
+                { strokeColor: "#FF0000 ",
+                  strokeWeight:2,
+                strokeOpacity:0.7}
+              }
+              />
+
+          </GoogleMap>
+        
+          }
       </div>
     </div>
   )

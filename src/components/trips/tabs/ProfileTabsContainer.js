@@ -5,7 +5,7 @@ import {RouteNotes} from './RouteNotes';
 import {PointsOfInterest} from './PointsOfInterest';
 function ProfileTabsContainer(props) {
 
-  const {routeInfo} = props;
+  const {routeInfo,map} = props;
 
   const [isDetails,setIsDetails] = useState(true);
   const [isNotes,setIsNotes] = useState(false);
@@ -49,7 +49,7 @@ function ProfileTabsContainer(props) {
 
         <li className="nav-item">
           <a className="nav-link active" onClick={onClickShowPOI} style={{"cursor":"pointer"}}> 
-          <div>Interested Points</div>
+          <div>Points of Interest</div>
           </a>
         </li>
 
@@ -62,10 +62,10 @@ function ProfileTabsContainer(props) {
       }
 
       {isNotes &&
-        <RouteNotes waypoints={routeInfo.waypoints}/>
+        <RouteNotes waypoints={routeInfo.waypoints} map={map}/>
       }
       {isPOI &&
-        <PointsOfInterest waypoints={routeInfo.waypoints}/>
+        <PointsOfInterest waypoints={routeInfo.waypoints} map={map}/>
       }
 
     </>
