@@ -1,16 +1,17 @@
-import React, {  useEffect, useRef, useState } from 'react'
+import React, { useState } from 'react'
 import './Routes.css';
 import AutoComplete from '../autocomplete/AutoComplete';
+import axios from 'axios';
+import { useUser } from '../../UserContext';
 
 const EditPopupForm= (props) => {
   
-  const {setShowAdd} = props;
-
-  
-
+  const {setShowAdd,setRoutes,routes} = props;
+  const {userInfo} = useUser();
   
   const [waypoint,setWaypoint] = useState(0);
   const [placeObj,setPlaceObj] = useState({
+    userId:userInfo.id,
     origin:"",
     destination:"",
     waypoints:[]
@@ -44,21 +45,23 @@ const EditPopupForm= (props) => {
   }
 
 
-  const handleSubmit = () =>{
-
+  const handleSubmit = (e) =>{
+    e.preventDefault();
+    //In case user adds a waypoint but does not fill out the waypoint field to keep a clean array with just values and no empty strings/undefined values
+    let cleanedArr = placeObj.waypoints.filter((waypoint)=>waypoint!=="");
+    setPlaceObj((prev) => ({...prev,["waypoints"]:[...cleanedArr]}));;
+    axios.post('http://localhost:8080/api/v1/route',placeObj)
+    .then(response=>{
+      console.log(response);
+      let routeArray = [...routes];
+      routeArray.push(response.data);
+      setRoutes(routeArray);
+      setShowAdd(false);
+    })
+    .catch(error=>{
+      console.log(error);
+    });
   }
-
-
-  //useRef to prevent undefined errors and wait for the placeObj to be set with a useable value where placeObj is the entire address_component array ready to be parsed 
-  const preInitialize = useRef(false);
-  useEffect(() => {
-    if (preInitialize.current){
-      console.log(placeObj)
-    }
-    preInitialize.current = true;
-  }, [placeObj])
-    
-
 
   //Using the keys of an arbitrary array to use as an id, in order to update the correct waypoint form fields
   const waypointFields = [...Array(waypoint).keys()].map(num=>{
@@ -86,8 +89,5 @@ const EditPopupForm= (props) => {
         </div>
       </div> 
     )
-  
-
- 
 }
 export default EditPopupForm
