@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import '../Trips.css'
+import { formatAddress } from '../../profile/routes/helper/formatAddress';
 function RouteDetails(props) {
   var totalMiles = 0;
   var totalMin = 0;
@@ -30,18 +31,19 @@ function RouteDetails(props) {
     return timeArr;
   }
 
-
-
-
   const listWaypoints = waypoints.map((waypoint,index)=>{
     if (index>0){
       let miles = convertMeterstoMi(waypoint.distance);
       let minutes = convertSecondsToMin(waypoint.duration);
       let timeArr = convertMintoHrsMin(minutes);
+
+      let origin = formatAddress(waypoints[index-1].address);
+      let destination = formatAddress(waypoint.address);
+
       return(
         <div className="infoBox mt-5" style={{"flexBasis":"30%"}}>
           <p>
-            {waypoints[index-1].address} --&gt; {waypoint.address}:
+            {origin} --&gt; {destination}:
           </p>
           <p>
             {miles}mi
