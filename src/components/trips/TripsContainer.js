@@ -26,16 +26,15 @@ function TripsContainer() {
 
 
   return (
-    <>
-    
-    {routeInfo &&
-    <>
-      <Gmaps routeInfo={routeInfo} map={map} setMap={setMap}/>
-    
-      <ProfileTabsContainer routeInfo={routeInfo} map={map}/>
-    </>
-    }
-    </>
+    <div className="routeBackdrop">
+      {routeInfo &&
+      <>
+        <Gmaps routeInfo={routeInfo} map={map} setMap={setMap}/>
+      
+        <ProfileTabsContainer routeInfo={routeInfo} map={map}/>
+      </>
+      }
+    </div>
   )
 }
 

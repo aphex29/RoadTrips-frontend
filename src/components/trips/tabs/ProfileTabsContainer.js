@@ -33,7 +33,7 @@ function ProfileTabsContainer(props) {
 
   return (
     <>
-    <div className="tabs d-flex justify-content-center mt-5 ">
+    <div className="tabs d-flex justify-content-center mt-5">
       <ul className="tabContainer nav nav-tabs" role="tablist">
         <li className="nav-item" role="presentation">
           <a className="nav-link active"  onClick={onClickRouteDetails} style={{"cursor":"pointer"}}> 

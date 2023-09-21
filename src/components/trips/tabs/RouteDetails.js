@@ -41,16 +41,16 @@ function RouteDetails(props) {
       let destination = formatAddress(waypoint.address);
 
       return(
-        <div className="infoBox mt-5" style={{"flexBasis":"30%"}}>
-          <p>
-            {origin} --&gt; {destination}:
-          </p>
-          <p>
-            {miles}mi
-          </p>
-          <p>
-            {timeArr[0]}h {timeArr[1]}m
-          </p>
+        <div className="infoBox mt-5 d-flex flex-column justify-content-center" style={{"flexBasis":"25%"}}>      
+            <p>
+              {origin} &#8594; {destination}:
+            </p>
+            <p>
+              {miles}mi
+            </p>
+            <p>
+              {timeArr[0]}h {timeArr[1]}m
+            </p>        
         </div>
       )
     }
@@ -60,17 +60,19 @@ function RouteDetails(props) {
   let totalTime = convertMintoHrsMin(totalMin);
   return (
     <>
-      <div className="d-flex mt-5 gap-5 justify-content-center" >
+      <div className="mt-3 totalBox d-inline-flex flex-column justify-content-center p-2">
+          <p>
+            Total distance: {Math.round(totalMiles*100)/100}mi
+          </p>
+          <p>
+            Total time: {totalTime[0]}h {totalTime[1]}m
+          </p>
+      </div>
+      
+      <div className="container d-flex pb-5 gap-5 justify-content-center" style={{"flexWrap":"wrap"}}>
         {listWaypoints}
       </div>
-      <div className="mt-3">
-        <p>
-          Total distance: {Math.round(totalMiles*100)/100}mi
-        </p>
-        <p>
-          Total time: {totalTime[0]}h {totalTime[1]}m
-        </p>
-      </div>
+      
     </>
   )
 }

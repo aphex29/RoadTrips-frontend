@@ -1,7 +1,14 @@
 
 nav{
-  background-color:rgb(148, 148, 148);
- 
+  background-color:rgba(26, 26, 26, 0.911);
+  color:white;
 }
 
+.nav_container span{
+  color:white;
+}
+
+.nav-item>a{
+  color:white;
+}
 

@@ -1,6 +1,23 @@
+.routeBackdrop{
+  min-height:100vh;
+  background: #ff0000 url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/499416/demo-bg.jpg") top center repeat-y; 
+  background-size: 100%; 
+}
+
+.totalBox>p{
+  color:rgb(230, 230, 230);
+  
+}
+
+.totalBox{
+  background:rgba(104, 104, 104, 0.384);
+  border:2px solid rgb(0, 0, 0);
+  border-radius:20px;
+}
+
 .mapBorder{
   background:rgba(255, 255, 255, 0.384);
-  border:2px solid rgb(0, 0, 0);
+  border:5px solid rgba(226, 12, 12, 0.438);
   border-radius:4px;
   height:400px;
   width:900px;
@@ -8,9 +25,13 @@
 
 .infoBox{
   border:2px solid black;
-  width:300px;
-  border-radius:50px;
-  background:rgba(128, 128, 128, 0.685);
+  min-width:400px;
+  min-height:250px;
+  color:rgb(204, 204, 204);
+  border-radius:20px;
+  background:rgba(128, 128, 128, 0.322);
+  box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.7);
+  backdrop-filter: saturate(180%) blur(20px);
 }
 
 .durationBox{
@@ -20,5 +41,21 @@
 
 .dropdownMenu{
   max-width:500px;
-
 }
+
+
+.nav-tabs > li > a{
+  background-color: #303136 !important;
+  border-color: #646464 !important;
+}
+.nav-tabs div{
+  color:rgb(204, 204, 204);
+}
+
+.nav-tabs > li > a:hover{
+  background-color: #303136 !important;
+    border: medium none;
+    border-radius: 0;
+    color:#fff;
+}
+

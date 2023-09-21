@@ -26,7 +26,7 @@ function Gmaps(props) {
   const decodedPolyline = polyline.decode(routeInfo.polyline).map(point=>({lat: point[0], lng: point[1]}));
   
   return (
-    <div className="mapContainer mt-5 d-flex justify-content-center"> 
+    <div className="mapContainer pt-5 d-flex justify-content-center"> 
       <div className="mapBorder" id="map">      
           {isLoaded &&
           <GoogleMap          
