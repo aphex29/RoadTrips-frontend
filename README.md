@@ -1,4 +1,10 @@
-# Getting Started with Create React App
+# Getting Started
+
+## All that is required is to fork this repo and start the front end my opening a terminal and typing "npm start"
+
+## Please follow my [instructions](https://github.com/aphex29/RoadTrips) to get the backend setup and working
+
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
